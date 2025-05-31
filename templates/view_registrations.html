@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Registrations</title>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+
+        background: url("{{ url_for('static', filename='images/login_bg.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+
+
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+        .container {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        li {
+            background-color: #e9ecef;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registered Students for Event ID: {{ event_id }}</h2>
+        <ul>
+            {% for student in registrations %}
+                <li>{{ student[0] }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('organizer_dash') }}" class="back-button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Events</title>
+</head>
+<body>
+    <h1>Browse and Register for Events</h1>
+
+    <form method="GET" action="{{ url_for('available_events') }}">
+        <input type="text" name="category" placeholder="Search by Category" value="{{ category }}">
+        <input type="text" name="venue" placeholder="Search by Venue" value="{{ venue }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if events %}
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>{{ event[1] }}</strong><br>
+                    Description: {{ event[2] }}<br>
+                    Date: {{ event[3] }}<br>
+                    Venue: {{ event[4] }}<br>
+                    Category: {{ event[5] }}<br>
+                    <a href="{{ url_for('register_event', event_id=event[0]) }}">Register</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No events found.</p>
+    {% endif %}
+</body>
+</html>

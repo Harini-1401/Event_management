@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register for Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_event.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 15px;
+        }
+        
+        .event-details {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0056b3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .event-details p {
+            margin: 5px 0;
+            color: #495057;
+        }
+        
+        .event-details .highlight {
+            color: #0056b3;
+            font-weight: 600;
+        }
+        
+        form {
+            display: grid;
+            grid-gap: 20px;
+        }
+        
+        label {
+            font-weight: 500;
+            color: #495057;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+        
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-button:hover {
+            color: #343a40;
+            text-decoration: underline;
+        }
+        
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2><i class="fas fa-calendar-check"></i> Event Registration</h2>
+        
+        <div class="event-details">
+            <p><span class="highlight">Event:</span> {{ event[1] }}</p>
+            <p><span class="highlight">Date:</span> {{ event[3] }}</p>
+            <p><span class="highlight">Venue:</span> {{ event[5] }}</p>
+            <p><span class="highlight">Fee:</span> ₹{{ event[7] }}</p>
+        </div>
+        
+        <form action="{{ url_for('confirm_registration', event_id=event_id) }}" method="POST">
+            <div class="field-row">
+                <div>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            
+            <div class="field-row">
+                <div>
+                    <label for="department">Department</label>
+                    <input type="text" id="department" name="department" placeholder="Your department" required>
+                </div>
+                <div>
+                    <label for="register_number">Register Number</label>
+                    <input type="text" id="register_number" name="register_number" placeholder="Your register number" required>
+                </div>
+            </div>
+            
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+            
+            <button type="submit"><i class="fas fa-check-circle"></i> Complete Registration</button>
+        </form>
+
+        <a href="{{ url_for('student_dash') }}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Return to Dashboard
+        </a>
+    </div>
+</body>
+</html>

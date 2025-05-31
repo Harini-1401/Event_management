@@ -1,0 +1,54 @@
+<!-- templates/email_sent.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Sent</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .card h1 {
+            color: #28a745;
+            font-size: 28px;
+        }
+        .card p {
+            color: #555;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📧 Email Sent Successfully!</h1>
+        <p>Your confirmation email has been sent to <strong>{{ email }}</strong>.</p>
+        <a href="{{ url_for('student_dash') }}" class="btn">Go to Dashboard</a>
+    </div>
+</body>
+</html>

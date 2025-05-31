@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | SSN Event Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #004494;
+            --secondary: #2c3e50;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --danger: #dc3545;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-to-home:hover {
+            opacity: 1;
+        }
+        
+        .back-to-home i {
+            margin-right: 5px;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .flash {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .flash.error {
+            background-color: #f8d7da;
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .flash.success {
+            background-color: #d4edda;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+        
+        .flash i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        
+        .icon {
+            position: absolute;
+            left: 12px;
+            top: 39px;
+            color: #adb5bd;
+        }
+        
+        .password-rules {
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="auth-container">
+        <div class="header">
+            <a href="{{ url_for('home') }}" class="back-to-home">
+                <i class="fas fa-arrow-left"></i> Home
+            </a>
+            <h1>Create Account</h1>
+            <p>Join the SSN Event Management System</p>
+        </div>
+        
+        <div class="form-container">
+                  <div class="flash {{ category }}">
+                    <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                  </div>
+            
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username">Email Address</label>
+                    <i class="fas fa-envelope icon"></i>
+                    <input type="email" id="username" name="username" placeholder="Enter your SSN email (@ssn.edu.in)" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <i class="fas fa-lock icon"></i>
+                    <input type="password" id="password" name="password" placeholder="Create a secure password" class="form-control" required>
+                    <div class="password-rules">
+                        Password must be at least 8 characters with uppercase, lowercase, and a digit
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Select Role</label>
+                    <i class="fas fa-user-tag icon"></i>
+                    <select id="role" name="role" class="form-control" required>
+                            <option value="{{ key }}">Option 1</option>
+                            <option value="{{ value }}">Option 2</option>
+                            <option value="{{ name }}">Option 3</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">Create Account  <i class="fas fa-user-plus"></i></button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Organizer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Organizer Dashboard</h2>
+        
+        <div class="top-links">
+            <a href="{{ url_for('logout') }}" class="btn logout">Logout</a> 
+            <a href="{{ url_for('create_event') }}" class="btn create">Create New Event</a>
+        </div>
+
+        <h3>Your Events</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event[0] }}</td>
+                    <td>{{ event[1] }}</td>
+                    <td>{{ event[2] }}</td>
+                    <td>{{ event[3] }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_own_event', event_id=event[0]) }}" class="btn delete">Delete</a>
+                        <a href="{{ url_for('view_registrations', event_id=event[0]) }}" class="btn view">View Registrations</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('organizer_dash') }}" class="btn back">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Welcome, {{ username }}!</h2>
+    <p>You are logged in as <strong>{{ role }}</strong>.</p>
+    
+    {% if role == "admin" %}
+        <p>Admin Panel: Manage users and events.</p>
+    {% elif role == "organizer" %}
+        <p>Organizer Panel: Create and manage events.</p>
+    {% elif role == "student" %}
+        <p>Student Panel: Register and participate in events.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
+

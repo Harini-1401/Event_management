@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Event</h2>
+        <form method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required min="{{ current_date }}">
+
+            <label for="venue">Venue:</label>
+            <input type="text" id="venue" name="venue" required>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required>
+
+            <label for="registration_fee">Registration Fee (₹):</label>
+            <input type="number" id="registration_fee" name="registration_fee" step="0.01" min="0" required>
+
+            <button type="submit" class="btn">Create Event</button>
+        </form>
+        <a href="{{ url_for('organizer_dash') }}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>
