@@ -156,7 +156,6 @@ Students can explore available events, view event details, register for events o
 ## 📷 Screenshots
 
 
-📷 Screenshots
 🔐 Login Page
 
 <p align="center"> <img src="https://github.com/user-attachments/assets/116b9c86-1eb8-4ff7-95d2-45063d75af92" width="500"> </p>
