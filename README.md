@@ -155,6 +155,7 @@ Students can explore available events, view event details, register for events o
 
 ## 📷 Screenshots
 
+
 * Login Page
   <img width="718" height="904" alt="image" src="https://github.com/user-attachments/assets/116b9c86-1eb8-4ff7-95d2-45063d75af92" />
 
@@ -167,7 +168,7 @@ Students can explore available events, view event details, register for events o
   <img width="2233" height="1377" alt="image" src="https://github.com/user-attachments/assets/4b551f31-0ba5-4d64-a941-afa68ba4b666" />
 
 * Admin Dashboard
-  <img width="2245" height="1438" alt="image" src="https://github.com/user-attachments/assets/04f26020-298c-4574-99a4-94cfae2ac735" />
+  <img width="2245" height="1386" alt="image" src="https://github.com/user-attachments/assets/8bf3b1be-d920-4a45-b568-63e10a2c64b5" />
 
 * Event Registration Page
   <img width="1127" height="689" alt="image" src="https://github.com/user-attachments/assets/10afa195-73ae-4013-9122-a15e866b4690" />
