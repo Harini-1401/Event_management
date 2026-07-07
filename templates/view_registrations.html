@@ -2,80 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Event Registrations</title>
-
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-
-        background: url("{{ url_for('static', filename='images/login_bg.jpg') }}") no-repeat center center fixed;
-        background-size: cover;
-
-
-        color: #fff;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-        .container {
-            background: white;
-            padding: 40px 50px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 25px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 30px;
-        }
-
-        li {
-            background-color: #e9ecef;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 6px;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .back-button {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registrations | SSN Event Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_layout.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h2>Registered Students for Event ID: {{ event_id }}</h2>
-        <ul>
-            {% for student in registrations %}
-                <li>{{ student[0] }}</li>
-            {% endfor %}
-        </ul>
-        <a href="{{ url_for('organizer_dash') }}" class="back-button">Back to Dashboard</a>
-    </div>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-calendar-star"></i> <span>SSN Events</span></h3>
+            <p>Organizer Portal</p>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('organizer_dash') }}" class="menu-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('create_event') }}" class="menu-item">
+                <i class="fas fa-plus-circle"></i>
+                <span>Create Event</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div class="page-title">
+                <h1>Event Registrations</h1>
+                <p>Students registered for this event</p>
+            </div>
+            <div class="user-actions">
+                <a href="{{ url_for('organizer_dash') }}" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ registrations|length }}</span>
+                    <span class="stat-label">Registered Students</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-list-ul"></i> Registered Students</h3>
+            {% if registrations %}
+                <div class="table-wrapper">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student Email</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in registrations %}
+                                <tr>
+                                    <td style="color: var(--text-muted); font-weight: 600;">{{ loop.index }}</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">
+                                                {{ student[0][0].upper() }}
+                                            </div>
+                                            <span style="font-weight: 500;">{{ student[0] }}</span>
+                                        </div>
+                                    </td>
+                                    <td style="color: var(--text-muted);">{{ student[0].split('@')[0] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-user-slash"></i>
+                    <h3>No Registrations Yet</h3>
+                    <p>No students have registered for this event yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
 </body>
 </html>

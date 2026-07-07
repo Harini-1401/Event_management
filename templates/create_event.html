@@ -2,34 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Event</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event | SSN Event Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_layout.css') }}">
 </head>
 <body>
-    <div class="form-container">
-        <h2>Create Event</h2>
-        <form method="post">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-calendar-star"></i> <span>SSN Events</span></h3>
+            <p>Organizer Portal</p>
+        </div>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea>
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('organizer_dash') }}" class="menu-item">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('create_event') }}" class="menu-item active">
+                <i class="fas fa-plus-circle"></i>
+                <span>Create Event</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-user-circle"></i>
+                <span>My Profile</span>
+            </a>
+        </nav>
 
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required min="{{ current_date }}">
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
 
-            <label for="venue">Venue:</label>
-            <input type="text" id="venue" name="venue" required>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div class="page-title">
+                <h1>Create New Event</h1>
+                <p>Fill in the details to publish a new event</p>
+            </div>
+            <div class="user-actions">
+                <a href="{{ url_for('organizer_dash') }}" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
 
-            <label for="category">Category:</label>
-            <input type="text" id="category" name="category" required>
+        <div class="card" style="max-width: 820px;">
+            <h3><i class="fas fa-edit"></i> Event Details</h3>
+            <form method="post" style="display: flex; flex-direction: column; gap: 22px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+                    <div class="form-group">
+                        <label for="title"><i class="fas fa-heading" style="margin-right: 6px; color: var(--text-muted);"></i>Event Title</label>
+                        <input type="text" id="title" name="title" class="form-control" placeholder="e.g. Annual Tech Fest" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date"><i class="far fa-calendar-alt" style="margin-right: 6px; color: var(--text-muted);"></i>Event Date</label>
+                        <input type="date" id="date" name="date" class="form-control" min="{{ current_date }}" required>
+                    </div>
+                </div>
 
-            <label for="registration_fee">Registration Fee (₹):</label>
-            <input type="number" id="registration_fee" name="registration_fee" step="0.01" min="0" required>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left" style="margin-right: 6px; color: var(--text-muted);"></i>Description</label>
+                    <textarea id="description" name="description" class="form-control" placeholder="Describe the event in detail..." required></textarea>
+                </div>
 
-            <button type="submit" class="btn">Create Event</button>
-        </form>
-        <a href="{{ url_for('organizer_dash') }}" class="back-link">Back to Dashboard</a>
-    </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+                    <div class="form-group">
+                        <label for="venue"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--text-muted);"></i>Venue</label>
+                        <input type="text" id="venue" name="venue" class="form-control" placeholder="e.g. Main Auditorium" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category"><i class="fas fa-tag" style="margin-right: 6px; color: var(--text-muted);"></i>Category</label>
+                        <input type="text" id="category" name="category" class="form-control" placeholder="e.g. Technical, Cultural, Sports" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+                    <div class="form-group">
+                        <label for="registration_fee"><i class="fas fa-rupee-sign" style="margin-right: 6px; color: var(--text-muted);"></i>Registration Fee (₹)</label>
+                        <input type="number" id="registration_fee" name="registration_fee" class="form-control" step="0.01" min="0" placeholder="0 for free events" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check-circle"></i> Create Event
+                    </button>
+                    <a href="{{ url_for('organizer_dash') }}" class="btn btn-outline">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

@@ -2,57 +2,201 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | SSN Event Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_layout.css') }}">
 </head>
 <body>
-    <div class="admin-container">
-        <h2>Admin Panel</h2>
-
-        <h3>Manage Users</h3>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Action</th>
-            </tr>
-            {% for user in users %}
-            <tr>
-                <td>{{ user[0] }}</td>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td><a href="{{ url_for('delete_user', user_id=user[0]) }}" class="delete-btn">Delete</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <h3>Manage Events</h3>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Organizer</th>
-                <th>Action</th>
-            </tr>
-            {% for event in events %}
-            <tr>
-                <td>{{ event[0] }}</td>
-                <td>{{ event[1] }}</td>
-                <td>{{ event[2] }}</td>
-                <td>{{ event[3] }}</td>
-                <td>{{ event[4] }}</td>
-                <td><a href="{{ url_for('delete_event', event_id=event[0]) }}" class="delete-btn">Delete</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <!-- Logout Button Moved to the Bottom -->
-        <div class="logout-container">
-            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-shield-alt"></i> <span>SSN Events</span></h3>
+            <p>Admin Portal</p>
         </div>
-    </div>
+
+        <nav class="sidebar-menu">
+            <a href="{{ url_for('admin_panel') }}" class="menu-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Overview</span>
+            </a>
+            <a href="#users-section" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Manage Users</span>
+            </a>
+            <a href="#events-section" class="menu-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Manage Events</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div class="page-title">
+                <h1>Admin Control Panel</h1>
+                <p>Manage all users and events across the platform</p>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ users|length }}</span>
+                    <span class="stat-label">Total Users</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ events|length }}</span>
+                    <span class="stat-label">Active Events</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ users|selectattr(2, 'equalto', 'organizer')|list|length }}</span>
+                    <span class="stat-label">Organizers</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon info">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ users|selectattr(2, 'equalto', 'student')|list|length }}</span>
+                    <span class="stat-label">Students</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card" id="users-section">
+            <h3><i class="fas fa-users-cog"></i> Manage Users</h3>
+            {% if users %}
+                <div class="table-wrapper">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email / Username</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td style="color: var(--text-muted); font-weight: 600;">{{ user[0] }}</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">
+                                                {{ user[1][0].upper() }}
+                                            </div>
+                                            <span style="font-weight: 500;">{{ user[1] }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge {{ user[2] }}">
+                                            {{ user[2].capitalize() }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('delete_user', user_id=user[0]) }}" class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Are you sure you want to delete this user?')">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-user-slash"></i>
+                    <h3>No Users Found</h3>
+                    <p>No registered users yet.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Events Table -->
+        <div class="card" id="events-section">
+            <h3><i class="fas fa-calendar-times"></i> Manage Events</h3>
+            {% if events %}
+                <div class="table-wrapper">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Event Title</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Organizer</th>
+                                <th>Venue</th>
+                                <th>Category</th>
+                                <th>Fee (₹)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td style="color: var(--text-muted); font-weight: 600;">{{ event[0] }}</td>
+                                    <td style="font-weight: 600; color: var(--secondary);">{{ event[1] }}</td>
+                                    <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted);" title="{{ event[2] }}">
+                                        {{ event[2] }}
+                                    </td>
+                                    <td>
+                                        <i class="far fa-calendar-alt" style="margin-right:6px; color: var(--text-muted);"></i>{{ event[3] }}
+                                    </td>
+                                    <td style="font-size: 0.85rem; color: var(--text-muted);">{{ event[4] }}</td>
+                                    <td>{{ event[5] }}</td>
+                                    <td>
+                                        <span class="status-badge active">{{ event[6] }}</span>
+                                    </td>
+                                    <td style="font-weight: 600;">₹{{ event[7] }}</td>
+                                    <td>
+                                        <a href="{{ url_for('delete_event', event_id=event[0]) }}" class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Delete this event permanently?')">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <h3>No Events Found</h3>
+                    <p>There are no active events on the platform.</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
 </body>
 </html>

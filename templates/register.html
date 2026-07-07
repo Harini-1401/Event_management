@@ -203,9 +203,16 @@
         </div>
         
         <div class="form-container">
-                  <div class="flash {{ category }}">
-                    <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
-                  </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">
+                            <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             
             <form method="POST">
                 <div class="form-group">
@@ -227,9 +234,9 @@
                     <label for="role">Select Role</label>
                     <i class="fas fa-user-tag icon"></i>
                     <select id="role" name="role" class="form-control" required>
-                            <option value="{{ key }}">Option 1</option>
-                            <option value="{{ value }}">Option 2</option>
-                            <option value="{{ name }}">Option 3</option>
+                        {% for key, val in roles.items() %}
+                            <option value="{{ key }}">{{ val }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 

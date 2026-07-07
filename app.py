@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
 from flask_bcrypt import Bcrypt
 import sqlite3
 import os
@@ -22,8 +22,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
 
 app = Flask(__name__, 
-            template_folder='event_management/templates',
-            static_folder='event_management/static')
+            template_folder='templates',
+            static_folder='static')
 app.secret_key = "your_secret_key"
 bcrypt = Bcrypt(app)
 
@@ -901,7 +901,28 @@ def confirm_registration(event_id):
 
         conn.close()
 
-        return send_email_with_pdf(email, name, new_event)
+        send_email_with_pdf(email, name, new_event)
+        return render_template("confirmation.html")
+
+@app.route("/download_report")
+def download_report():
+    if "user" not in session or session["role"] != "student":
+        return redirect(url_for("login"))
+
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT events.id, events.title, events.description, events.date, events.organizer
+        FROM registrations
+        JOIN events ON registrations.event_id = events.id
+        JOIN users ON registrations.user_id = users.id
+        WHERE users.username = ?
+    """, (session["user"],))
+    events = cursor.fetchall()
+    conn.close()
+
+    pdf_buffer = generate_pdf(session["user"], events)
+    return send_file(pdf_buffer, as_attachment=True, download_name="event_report.pdf", mimetype="application/pdf")
 
 # Logout
 @app.route("/logout")
