@@ -156,23 +156,28 @@ Students can explore available events, view event details, register for events o
 ## 📷 Screenshots
 
 
-* Login Page
-  <img width="718" height="904" alt="image" src="https://github.com/user-attachments/assets/116b9c86-1eb8-4ff7-95d2-45063d75af92" />
+📷 Screenshots
+🔐 Login Page
 
-* Student Dashboard
-  <img width="2248" height="1374" alt="image" src="https://github.com/user-attachments/assets/0ddabaa5-06c6-49ef-b2c8-3ce1c8d128d5" />
+<p align="center"> <img src="https://github.com/user-attachments/assets/116b9c86-1eb8-4ff7-95d2-45063d75af92" width="500"> </p>
 
-* Organizer Dashboard
-  
-  <img width="2248" height="1387" alt="image" src="https://github.com/user-attachments/assets/df43be23-35d9-4d92-8928-406ac8ee53dd" />
-  <img width="2233" height="1377" alt="image" src="https://github.com/user-attachments/assets/4b551f31-0ba5-4d64-a941-afa68ba4b666" />
+🎓 Student Dashboard
 
-* Admin Dashboard
-  <img width="2245" height="1386" alt="image" src="https://github.com/user-attachments/assets/8bf3b1be-d920-4a45-b568-63e10a2c64b5" />
+<p align="center"> <img src="https://github.com/user-attachments/assets/0ddabaa5-06c6-49ef-b2c8-3ce1c8d128d5" width="800"> </p>
 
-* Event Registration Page
-  <img width="1127" height="689" alt="image" src="https://github.com/user-attachments/assets/10afa195-73ae-4013-9122-a15e866b4690" />
+📝 Organizer Dashboard
 
+<p align="center"> <img src="https://github.com/user-attachments/assets/df43be23-35d9-4d92-8928-406ac8ee53dd" width="800"> </p>
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/4b551f31-0ba5-4d64-a941-afa68ba4b666" width="800"> </p>
+
+👨‍💼 Admin Dashboard
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/8bf3b1be-d920-4a45-b568-63e10a2c64b5" width="800"> </p>
+
+🎫 Event Registration Page
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/10afa195-73ae-4013-9122-a15e866b4690" width="700"> </p>
 
 ---
 
